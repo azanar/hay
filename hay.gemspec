@@ -6,6 +6,7 @@ Gem::Specification.new do |spec|
   spec.name        = "hay"
   spec.version     = Hay::VERSION
   spec.summary     = "A workflow definition framework."
+  spec.description = "A generic workflow definition framework."
   spec.platform    = "ruby"
 
   spec.homepage    = "https://github.com/azanar/hay"
