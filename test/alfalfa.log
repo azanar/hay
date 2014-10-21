@@ -1,0 +1,47 @@
+/Users/ecarrel/.rbenv/versions/2.0.0-p247/bin/ruby -I"lib:test:config" -I"/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib" "/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib/rake/rake_test_loader.rb" "test/unit/alfalfa/dispatcher_test.rb" "test/unit/alfalfa/message_test.rb" "test/unit/alfalfa/route_test.rb" "test/unit/alfalfa/router_test.rb" "test/unit/alfalfa/routes_test.rb" "test/unit/alfalfa/task/flowable_test.rb" "test/unit/alfalfa/task/resulter_test.rb" "test/unit/alfalfa/task/template/hydrator_test.rb" "test/unit/alfalfa/task/template_test.rb" "test/unit/alfalfa/task_test.rb" 
+[2013-10-24 15:01:51 -0700, INFO] Registering template Alfalfa::Task::Template::HashTemplate for Hash
+[2013-10-24 15:01:51 -0700, INFO] Registering template Alfalfa::Task::Template::TaskTemplate for Alfalfa::Task
+Run options: 
+
+# Running tests:
+
+..................S.[2013-10-24 15:01:51 -0700, INFO] Running #<Mocha::Mock:0x007ffea5065670> with #<Mocha::Mock:0x007ffea5065468>
+.
+
+Finished tests in 0.018424s, 1139.8176 tests/s, 4776.3786 assertions/s.
+
+21 tests, 88 assertions, 0 failures, 0 errors, 1 skips
+
+ruby -v: ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-darwin13.0.0]
+/Users/ecarrel/.rbenv/versions/2.0.0-p247/bin/ruby -I"lib:test:config" -I"/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib" "/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib/rake/rake_test_loader.rb" "test/integration/alfalfa_test.rb" 
+Run options: 
+
+# Running tests:
+
+DIS: #<#<Class:0x007fd3ca84d898>:0x007fd3ca84d758>
+FOO #<Alfalfa::Dispatcher:0x007fd3ca84d5a0>
+.DIS: #<#<Class:0x007fd3ca8542d8>:0x007fd3ca85ff48>
+[2013-10-24 15:01:52 -0700, ERROR] Unknown route for task #<#<Class:0x007fd3ca85fbd8>:0x007fd3ca85f778>
+E
+
+Finished tests in 0.007172s, 278.8622 tests/s, 0.0000 assertions/s.
+
+  1) Error:
+AlfalfaTest#test_consuming_and_producing:
+RuntimeError: Unknown route for task #<#<Class:0x007fd3ca85fbd8>:0x007fd3ca85f778>
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/lib/alfalfa/message.rb:16:in `initialize'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/lib/alfalfa/dispatcher.rb:17:in `new'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/lib/alfalfa/dispatcher.rb:17:in `push'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/test/integration/alfalfa_test.rb:54:in `block (3 levels) in <class:AlfalfaTest>'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/lib/alfalfa/queue.rb:18:in `run'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/lib/alfalfa/consumer.rb:16:in `push'
+    /Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/test/integration/alfalfa_test.rb:58:in `block in <class:AlfalfaTest>'
+
+2 tests, 0 assertions, 0 failures, 1 errors, 0 skips
+
+ruby -v: ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-darwin13.0.0]
+rake aborted!
+Command failed with status (1): [ruby -I"lib:test:config" -I"/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib" "/Users/ecarrel/.rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/rake-10.1.0/lib/rake/rake_test_loader.rb" "test/integration/alfalfa_test.rb" ]
+/Users/ecarrel/Documents/pc/coinstar/coinstar-gems/alfalfa/Rakefile:28:in `block in <top (required)>'
+Tasks: TOP => test:integration
+(See full trace by running task with --trace)
