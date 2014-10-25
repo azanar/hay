@@ -1,7 +1,6 @@
 require File.expand_path('../../../../test_helper', __FILE__)
 
 require 'hay/task/template/hydrator'
-require 'hay/task/registry'
 
 class Hay::Task::Template::HydratorTest < Test::Unit::TestCase
   test 'hydrate_with' do
