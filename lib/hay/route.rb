@@ -1,12 +1,17 @@
 module Hay
   module Route
+    module Autowired
+      def self.included(route)
+        route.class_exec do
+          include Hay::Route
+        end
+        Hay::Routes.register(route)
+      end
+    end
+
     class << self
       def queue_name
         raise NotImplementedException
-      end
-
-      def included(route)
-        Hay::Routes.register(route)
       end
     end
 

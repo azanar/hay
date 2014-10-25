@@ -13,9 +13,14 @@ module Hay
   # dehydrate.
   #
   module Task
-    def self.included(base)
-      Hay::Tasks.register(base)
-      Hay::Task::Hydrators.register(base, Hay::Task::Hydrator)
+    module Autowired
+      def self.included(base)
+        base.instance_exec do
+          include Hay::Task
+        end
+        Hay::Tasks.register(base)
+        Hay::Task::Hydrators.register(base, Hay::Task::Hydrator)
+      end
     end
 
     def task_name

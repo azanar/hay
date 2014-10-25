@@ -18,7 +18,7 @@ class HayTest < Test::Unit::TestCase
   module MockTask
     def self.included(base)
       base.instance_exec do
-        include Hay::Task
+        include Hay::Task::Autowired
       end
     end
 
@@ -142,7 +142,7 @@ class HayTest < Test::Unit::TestCase
       [RemoteTask]
     end
 
-    include Hay::Route
+    include Hay::Route::Autowired
 
   end
 

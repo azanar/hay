@@ -2,11 +2,30 @@ require File.expand_path('../../test_helper', __FILE__)
 
 require 'hay/route'
 
-class Hay::RouteTest < Test::Unit::TestCase
-  setup do
+class Hay::Route::AutowiredTest < Test::Unit::TestCase
+  test "autowiring" do
     dummy_route_klass = Class.new
 
     Hay::Routes.expects(:register).with(dummy_route_klass)
+
+    dummy_route_klass.class_exec do
+      include Hay::Route::Autowired
+
+      def tasks=(tasks)
+        @tasks = tasks
+      end
+
+      def tasks
+        @tasks
+      end
+    end
+
+    assert dummy_route_klass.include?(Hay::Route)
+  end
+end
+class Hay::RouteTest < Test::Unit::TestCase
+  setup do
+    dummy_route_klass = Class.new
 
     dummy_route_klass.class_exec do
       include Hay::Route
