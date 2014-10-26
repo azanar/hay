@@ -5,6 +5,9 @@ require 'hay/task/exception/unknown_template_error'
 
 module Hay
   module Task
+    # A {Task::Template} 
+    #
+    #
     module Template
       def self.new(params)
         template_class = Hay::Task::Templates.for(params)

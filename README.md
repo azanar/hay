@@ -8,4 +8,48 @@
 
 Hay
 =======
-A workflow definition framework.
+Hay is a workflow definition framework.
+
+Hay manages making sense out of tasks and subsequent workflows, and is largely agnostic about how these get moved around.
+
+Installation
+------------
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'hay'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install hay
+
+Usage
+-----
+
+API Documentation
+-----------------
+
+See [RubyDoc](http://rubydoc.info/gems/hay/index)
+
+Contributors
+------------
+
+See [Contributing](CONTRIBUTING.md) for details.
+
+Todo
+----
+
+See [TODO](TODO.md) for
+
+License
+-------
+
+&copy;2014 Ed Carrel. Released under the MIT License.
+
+See [License](LICENSE) for details.

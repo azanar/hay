@@ -1,6 +1,7 @@
 require 'hay/routes'
 
 module Hay
+  #
   class Message
     def initialize(task)
       @task = task

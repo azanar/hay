@@ -1,5 +1,6 @@
 require 'logger'
 
+# Hay 
 module Hay
   class << self
     def logger

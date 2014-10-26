@@ -1,6 +1,7 @@
 module Hay
   module Task
     module Template
+      # A
       class Hash
 
         def initialize(params)
