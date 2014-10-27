@@ -27,6 +27,14 @@ module Hay
       self.class.task_name
     end
 
+    def process(dispatcher)
+      raise NotImplementedError
+    end
+
+    def dehydrate
+      raise NotImplementedError
+    end
+
     def to_hay
       Hay::Task::Decorator.new(self)
     end
