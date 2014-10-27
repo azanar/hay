@@ -19,19 +19,22 @@ class HayTest < Test::Unit::TestCase
     def self.included(base)
       base.instance_exec do
         include Hay::Task::Autowired
+        include InstanceMethods
       end
     end
 
-    def payload
-      {}
-    end
+    module InstanceMethods
+      def payload
+        {}
+      end
 
-    def self.task_name
-      "outtask"
-    end
+      def self.task_name
+        "outtask"
+      end
 
-    def dehydrate
-      {}
+      def dehydrate
+        {}
+      end
     end
   end
 
