@@ -1,7 +1,7 @@
 require 'hay/task/decorator'
 
 module Hay
-  module Task
+  class Task
     module Resolver
       class Task
         def initialize(task)
@@ -11,7 +11,7 @@ module Hay
         def build
           @task
         end
-        Hay::Task::Resolvers.register(Hay::Task::Decorator, self)
+        Hay::Task::Resolvers.register(Hay::Task, self)
       end
     end
   end

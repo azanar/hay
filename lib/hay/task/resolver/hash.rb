@@ -2,7 +2,7 @@ require 'hay/task/hydrators'
 require 'hay/task/resolvers'
 
 module Hay
-  module Task
+  class Task
     module Resolver
       class Hash
         def initialize(hash)

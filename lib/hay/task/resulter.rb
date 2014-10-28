@@ -1,7 +1,7 @@
 require 'hay/task/template/hydrator'
 
 module Hay
-  module Task
+  class Task
     class Resulter
       def initialize(flow, dispatcher)
         @hydrator = Hay::Task::Template::Hydrator.new(flow)

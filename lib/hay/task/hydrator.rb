@@ -1,14 +1,14 @@
 require 'hay/task/flow'
 
 module Hay
-  module Task
+  class Task
     class Hydrator
       def initialize(hash)
         @hash = hash
       end
 
       def hydrate
-        task_class = Hay::Tasks.for_name(@hash['name'])
+        task_class = Hay::Task::Processors.for_name(@hash['name'])
         if task_class.nil?
           raise "No task for name #{@hash['name']}"
         end

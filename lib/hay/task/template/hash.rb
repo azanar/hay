@@ -1,5 +1,5 @@
 module Hay
-  module Task
+  class Task
     module Template
       class Hash
 

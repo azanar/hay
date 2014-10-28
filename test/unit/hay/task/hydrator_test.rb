@@ -11,7 +11,7 @@ class Hay::Task::HydratorTest < Test::Unit::TestCase
     mock_hash.expects(:[]).with('name').returns(mock_task_name)
 
     mock_task_class = mock
-    Hay::Tasks.expects(:for_name).with(mock_task_name).returns(mock_task_class)
+    Hay::Task::Processors.expects(:for_name).with(mock_task_name).returns(mock_task_class)
 
     mock_hash_task = mock
     mock_hash.expects(:[]).with('task').returns(mock_hash_task)

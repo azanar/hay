@@ -3,7 +3,7 @@ require 'hay'
 require 'punchout/matcher/equal'
 
 module Hay
-  module Task
+  class Task
     module Hydrators
       extend Punchout::Punchable
 

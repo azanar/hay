@@ -1,5 +1,5 @@
 module Hay
-  module Task
+  class Task
     class Exception < StandardError
       class UnknownTemplateError < StandardError
         def initialize(template_name)

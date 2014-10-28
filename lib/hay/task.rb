@@ -1,42 +1,37 @@
 require 'hay'
 
-require 'hay/task/decorator'
-require 'hay/task/hydrator'
-require 'hay/task/hydrators'
-require 'hay/tasks'
+require 'hay/task/flow'
+require 'hay/task/template/task'
 
 module Hay
   ##
   # An Hay::Task is made up of a Task, and that Task's associated Flow.
   #
-  # A Task is any object that can respond to task_name, process, and
-  # dehydrate.
-  #
-  module Task
-    module Autowired
-      def self.included(base)
-        base.instance_exec do
-          include Hay::Task
-        end
-        Hay::Tasks.register(base)
-        Hay::Task::Hydrators.register(base, Hay::Task::Hydrator)
-      end
-    end
-
-    def task_name
-      self.class.task_name
+  class Task
+    def initialize(processor)
+      @instance = processor
     end
 
     def process(dispatcher)
-      raise NotImplementedError
+      @instance.call(dispatcher)
+    end
+
+    attr_writer :flow
+
+    def flow
+      @flow ||= Hay::Task::Flow.new
+    end
+
+    def template
+      Hay::Task::Template::Task.new
     end
 
     def dehydrate
-      raise NotImplementedError
-    end
-
-    def to_hay
-      Hay::Task::Decorator.new(self)
+      {
+        "name" => @task_name,
+        "task" => @task.params,
+        "flow" => flow.dehydrate
+      }
     end
   end
 end

@@ -4,6 +4,7 @@ require 'hay/consumer'
 require 'hay/route'
 require 'hay/task'
 
+require 'hay/task/instance'
 require 'hay/task/templates'
 
 class HayTest < Test::Unit::TestCase
@@ -18,22 +19,7 @@ class HayTest < Test::Unit::TestCase
   module MockTask
     def self.included(base)
       base.instance_exec do
-        include Hay::Task::Autowired
-        include InstanceMethods
-      end
-    end
-
-    module InstanceMethods
-      def payload
-        {}
-      end
-
-      def self.task_name
-        "outtask"
-      end
-
-      def dehydrate
-        {}
+        include Hay::Task::Instance::Autowired
       end
     end
   end
@@ -62,7 +48,7 @@ class HayTest < Test::Unit::TestCase
       @ran = false
     end
 
-    def process(dispatcher)
+    def call(dispatcher)
       @ran = true
     end
 
@@ -80,7 +66,7 @@ class HayTest < Test::Unit::TestCase
 
     include MockTask
 
-    def process(dispatcher)
+    def call(dispatcher)
       dispatcher.inject(TerminalTask.new.to_hay)
       @ran = true
     end
@@ -99,7 +85,7 @@ class HayTest < Test::Unit::TestCase
 
     include MockTask
 
-    def process(dispatcher)
+    def call(dispatcher)
       dispatcher.inject(RemoteTask.new.to_hay)
       @ran = true
     end
@@ -118,7 +104,7 @@ class HayTest < Test::Unit::TestCase
 
     include MockTask
 
-    def process(dispatcher)
+    def call(dispatcher)
       dispatcher.submit({})
       @ran = true
     end

@@ -1,7 +1,7 @@
 require 'hay/task/exception'
 
 module Hay
-  module Task
+  class Task
     class Exception < StandardError
       class TransientException < Hay::Task::Exception
       end

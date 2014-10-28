@@ -3,7 +3,7 @@ require 'hay'
 require 'hay/task/template'
 
 module Hay
-  module Task
+  class Task
     class Flow
       def initialize(list = [])
         @tasks = list || []

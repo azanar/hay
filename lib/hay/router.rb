@@ -1,4 +1,3 @@
-require 'hay/dispatcher'
 require 'hay/routes'
 
 module Hay

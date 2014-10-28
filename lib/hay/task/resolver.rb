@@ -3,8 +3,8 @@ require 'hay'
 require 'hay/task/exception/unknown_template_error'
 
 module Hay
-  module Task
-    module Resolver
+  class Task
+    class Resolver
       def self.new(params)
         resolver_class = Hay::Task::Resolvers.punch(params)
         if resolver_class.nil?

@@ -1,8 +1,8 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path('../../../test_helper', __FILE__)
 
-require 'hay/dispatcher'
+require 'hay/consumer/dispatcher'
 
-class Hay::DispatcherTest < Test::Unit::TestCase
+class Hay::Consumer::DispatcherTest < Test::Unit::TestCase
   setup do
     @mock_agent = mock
     @mock_consumer = mock
@@ -12,7 +12,7 @@ class Hay::DispatcherTest < Test::Unit::TestCase
     @mock_router = mock
     Hay::Router.expects(:new).with(@mock_agent).returns(@mock_router)
 
-    @dispatcher = Hay::Dispatcher.new(@mock_consumer, @mock_agent)
+    @dispatcher = Hay::Consumer::Dispatcher.new(@mock_consumer, @mock_agent)
   end
 
   test '#push ours' do

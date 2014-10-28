@@ -1,5 +1,5 @@
 module Hay
-  module Task
+  class Task
     class Exception < StandardError
       def initialize(cause)
         @cause = cause

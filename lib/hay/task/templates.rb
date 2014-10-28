@@ -2,7 +2,7 @@ require 'punchout'
 require 'punchout/matcher/ancestry'
 
 module Hay
-  module Task
+  class Task
     module Templates
       extend Punchout::Punchable
 
