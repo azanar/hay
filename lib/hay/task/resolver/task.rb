@@ -11,7 +11,7 @@ module Hay
         def build
           @task
         end
-        Hay::Task::Resolvers.register(Hay::Task, self)
+        Hay::Task::Resolvers.register(Hay::Task::Template, self)
       end
     end
   end

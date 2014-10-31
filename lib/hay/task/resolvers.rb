@@ -3,10 +3,10 @@ require 'punchout/matcher/ancestry'
 
 module Hay
   class Task
-    module Resolvers
-      extend Punchout::Punchable
+    module Resolver
+      include Punchout::Punchable
 
-      def self.register(type, resolver)
+      def register(type, resolver)
         Hay.logger.info "Registering resolver #{type} for #{resolver}"
         matchable = Punchout::Matcher::Ancestry.new(type).punches(resolver)
         puncher.add(matchable)

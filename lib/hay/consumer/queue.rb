@@ -8,14 +8,14 @@ module Hay
         @dispatcher = Hay::Consumer::Dispatcher.new(consumer, agent)
       end
 
-      def push(task)
-        @queue << task
+      def push(instance)
+        @queue << instance
       end
 
       def run
         until @queue.empty?
-          task = @queue.shift
-          task.process(@dispatcher)
+          instance = @queue.shift
+          instance.process(@dispatcher)
         end
       end
     end

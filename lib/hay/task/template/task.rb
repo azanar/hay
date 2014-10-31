@@ -4,19 +4,19 @@ module Hay
   class Task
     module Template
       class Task
-        def initialize(params)
-          @name = params.task_name
-          @payload = params.payload
-          @flow = params.flow
+        def initialize(name, params)
+          @name = name
+          @params = params
         end
 
         def render(params = {})
-          merged = params.merge(@payload)
+          merged = params.merge(@params)
 
-          task = Hay::Task.new(@name)
+          type = Hay::Tasks.new(@name)
 
-          task.flow = @flow
-          task
+          instance = type.new(merged)
+
+          Hay::Task.new(instance)
         end
 
         Hay::Task::Templates.register(Hay::Task, self)

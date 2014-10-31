@@ -16,9 +16,8 @@ class Hay::Task::Template::TaskTest < Test::Unit::TestCase
     mock_template_task.expects(:flow).returns(mock_template_task_flow)
 
     mock_task = mock
-    mock_task.expects(:new).with({"foo" => "fooval", "bar" => "barval"}).returns(mock_task)
+    Hay::Task.expects(:new).with({"foo" => "fooval", "bar" => "barval"}).returns(mock_task)
 
-    mock_hay_task = mock
     mock_task.expects(:to_hay).returns(mock_hay_task)
 
     mock_hay_task.expects(:flow=).with(mock_template_task_flow)

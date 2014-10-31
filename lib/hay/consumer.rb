@@ -10,6 +10,8 @@ module Hay
       @resolver = Hay::Consumer::Resolver.new(self)
     end
 
+    attr_reader :resolver
+
     def ours?(task)
       @resolver.can_resolve?(task)
     end

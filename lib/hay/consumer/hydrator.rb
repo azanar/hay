@@ -3,12 +3,13 @@ require 'hay/task/flow'
 module Hay
   class Task
     class Hydrator
-      def initialize(hash)
+      def initialize(consumer, hash)
+        @consumer = consumer
         @hash = hash
       end
 
       def hydrate
-        task_class = Hay::Task::Processors.for_name(@hash['name'])
+        task_class = consumer.resolve(@hash).for_name(@hash['name'])
         if task_class.nil?
           raise "No task for name #{@hash['name']}"
         end

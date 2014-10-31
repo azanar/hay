@@ -8,8 +8,8 @@ module Hay
   # An Hay::Task is made up of a Task, and that Task's associated Flow.
   #
   class Task
-    def initialize(processor)
-      @instance = processor
+    def initialize(instance)
+      @instance = instance
     end
 
     def process(dispatcher)

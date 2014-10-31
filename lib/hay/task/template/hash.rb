@@ -2,7 +2,6 @@ module Hay
   class Task
     module Template
       class Hash
-
         def initialize(params)
           @params = params
 
