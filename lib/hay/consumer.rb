@@ -8,16 +8,17 @@ module Hay
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
       @resolver = Hay::Consumer::Resolver.new(self)
+      @routes = Hay::Routes.new(self)
     end
 
     attr_reader :resolver
 
-    def ours?(task)
-      @resolver.can_resolve?(task)
+    def ours?(taskish)
+      @resolver.can_resolve?(taskish)
     end
 
-    def push(task)
-      resolved_task = @resolver.resolve(task)
+    def push(taskish)
+      resolved_task = @resolver.resolve(taskish)
 
       resolved_task = Hay::Task.new(task)
       @queue.push(resolved_task)

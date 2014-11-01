@@ -1,9 +1,10 @@
 
 module Hay
-  class Consumer
+  module Consumer
     class Resolver
       def initialize(consumer)
         @consumer = consumer
+        @resolver = Hay::Task::Resolver.new
       end
 
       def templates

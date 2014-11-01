@@ -5,12 +5,15 @@ require 'hay/task/exception/unknown_template_error'
 module Hay
   class Task
     class Resolver
-      def self.new(params)
-        resolver_class = Hay::Task::Resolvers.punch(params)
-        if resolver_class.nil?
-          raise Hay::Task::Exception::UnknownTemplateError.new("No resolver for #{params.class}")
-        end
-        resolver_class.new(params).build
+      def initialize
+        @hydrators = []
+        @templates = []
+      end
+
+      def can_resolve?(taskish)
+      end
+
+      def resolve
       end
     end
   end

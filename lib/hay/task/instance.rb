@@ -7,7 +7,6 @@ module Hay
             include Hay::Task::Instance
           end
           Hay::Task::Processors.register(base.task_name, base)
-          Hay::Task::Hydrators.register(base, Hay::Task::Hydrator)
         end
       end
 
@@ -18,6 +17,8 @@ module Hay
       def call(dispatcher)
         raise NotImplementedError
       end
+
+      Hay::Task::Hydrators.register(self, Hay::Task::Hydrator)
     end
   end
 end

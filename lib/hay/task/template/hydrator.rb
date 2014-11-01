@@ -2,7 +2,7 @@ require 'hay'
 
 module Hay
   class Task
-    module Template
+    class Template
       class Hydrator
         def initialize(flow)
           @templates = flow.inflate

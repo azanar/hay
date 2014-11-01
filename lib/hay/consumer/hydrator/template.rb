@@ -2,8 +2,8 @@ module Hay
   class Task
     class Hydrator
       class Template
-        def initialize(consumer,template) 
-          @consumer = consumer
+        def initialize(resolver,template) 
+          @resolver = resolver
           @template = template
         end
 
