@@ -10,6 +10,10 @@ module Hay
         end
       end
 
+      def initialize(params)
+        @params = params
+      end
+
       def to_hay
         Hay::Task.new(self)
       end
@@ -17,8 +21,6 @@ module Hay
       def call(dispatcher)
         raise NotImplementedError
       end
-
-      Hay::Task::Hydrators.register(self, Hay::Task::Hydrator)
     end
   end
 end

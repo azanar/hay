@@ -12,7 +12,9 @@ module Hay
             raise
           end
 
-          @resolver.resolve(@hash)
+          template = @resolver.resolve(@hash['name'])
+
+          template.merge(@hash['params']).render
         end
       end
     end

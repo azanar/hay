@@ -7,26 +7,27 @@ module Hay
   module Consumer
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
-      @resolver = Hay::Consumer::Resolver.new(self)
-      @routes = Hay::Routes.new(self)
+      @catalog = Hay::Consumer::Catalog.new
+      @routes = Hay::Consumer::Routes.new(self)
     end
 
-    attr_reader :resolver
+    attr_reader :catalog
 
     def ours?(taskish)
-      @resolver.can_resolve?(taskish)
+      resolver.can_resolve?(taskish)
     end
 
     def push(taskish)
-      resolved_task = @resolver.resolve(taskish)
+      task = resolver.resolve(taskish)
 
-      resolved_task = Hay::Task.new(task)
-      @queue.push(resolved_task)
+      @queue.push(task)
       @queue.run
     end
 
-    def task_names
-      @task_names ||= tasks.map(&:task_name)
+    private
+
+    def resolver
+      @resolver ||= Hay::Consumer::Resolver.new(@catalog)
     end
   end
 end

@@ -1,20 +1,13 @@
 
 module Hay
-  module Consumer
+  class Consumer
     class Resolver
-      def initialize(consumer)
-        @consumer = consumer
-        @resolver = Hay::Task::Resolver.new
-      end
-
-      def templates
-        @templates ||= consumer.task_names.each do |name|
-          Hay::Task.new(name).template
-        end
+      def initialize(catalog)
+        @catalog = catalog
       end
 
       def can_resolve?(taskish)
-        templates.any? { |r|
+        @catalog.any? { |r|
           r.can_resolve?(taskish)
         }
       end

@@ -6,20 +6,36 @@ require 'hay/task/exception/unknown_template_error'
 module Hay
   class Consumer
     class Catalog
-      def initialize
-        @tasks = []
-      end
-
-      def add(task)
-        @tasks << task
-      end
-
-      def find(params)
-        template_class = Hay::Task::Templates.for(params)
-        if template_class.nil?
-          raise Hay::Task::Exception::UnknownTemplateError.new("No template for #{params.class}")
+      class Inflator
+        def initialize(catalog)
+          @catalog = catalog
         end
-        template_class.new(params)
+
+        def inflate(task)
+          if catalog.exists?(task)
+
+          end
+        end
+      end
+
+      def initialize(consumer)
+        @consumer = consumer
+        @templates = {}
+      end
+
+      def add(name, template)
+        @templates[name] << template
+      end
+
+      def exists?(name)
+        @templates.has_key?(name)
+      end
+
+      def find(name)
+        unless exists?(name)
+          raise Hay::Task::Exception::UnknownTemplateError.new("No template for #{name}")
+        end
+        @templates[name]
       end
     end
   end

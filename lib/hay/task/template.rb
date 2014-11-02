@@ -3,17 +3,18 @@ require 'hay/task'
 module Hay
   class Task
     class Template
-      def initialize(name, params)
+      def initialize(name, instance, params = {})
         @name = name
+        @instance = instance
         @params = params
       end
 
-      def render(params = {})
-        merged = params.merge(@params)
+      def merge(params = {})
+        self.new(@name, @instance, @params.merge(params))
+      end
 
-        instance = type.new(merged)
-
-        Hay::Task.new(instance)
+      def render
+        @instance.new(@params)
       end
     end
   end

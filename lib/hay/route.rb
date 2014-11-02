@@ -1,5 +1,5 @@
 module Hay
-  module Route
+  class Route
     module Autowired
       def self.included(route)
         route.class_exec do
@@ -9,18 +9,15 @@ module Hay
       end
     end
 
-    class << self
-      def queue_name
-        raise NotImplementedException
-      end
-    end
-
     def initialize(agent)
       @agent = agent
     end
 
+    attr_reader :tasks
+    attr_reader :queue
+
     def tasks
-      raise NotImplementedException
+      @tasks
     end
 
     def push(message)
@@ -28,7 +25,7 @@ module Hay
     end
 
     def ours?(message)
-      tasks.include?(message.task.class)
+      tasks.include?(message.task)
     end
   end
 end

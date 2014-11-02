@@ -1,18 +1,18 @@
 require 'hay'
 
 require 'hay/task/flow'
-require 'hay/task/template/task'
+#require 'hay/task/template/task'
 
 module Hay
   ##
   # An Hay::Task is made up of a Task, and that Task's associated Flow.
   #
-  class Task
+ class Task
     def initialize(instance)
       @instance = instance
     end
 
-    def process(dispatcher)
+    def call(dispatcher)
       @instance.call(dispatcher)
     end
 
