@@ -4,15 +4,11 @@ module Hay
   class Task
     class Template
       class Hydrator
-        def initialize(flow)
-          @templates = flow.inflate
+        def initialize(templates)
+          @templates = templates
         end
 
-        def hydrate
-          hydrate_with({})
-        end
-
-        def hydrate_with(params)
+        def hydrate(params = {})
           @templates.map do |template|
             template.render(params).tap {|t| Hay.logger.debug "HYDRATED TEMPLATE: #{t.inspect}" }
           end

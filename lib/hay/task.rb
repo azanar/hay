@@ -19,7 +19,7 @@ module Hay
     attr_writer :flow
 
     def flow
-      @flow ||= Hay::Task::Flow.new
+      @flow ||= Hay::Task::Flow::List.new
     end
 
     def template

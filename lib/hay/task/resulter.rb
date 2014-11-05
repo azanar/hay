@@ -3,8 +3,8 @@ require 'hay/task/template/hydrator'
 module Hay
   class Task
     class Resulter
-      def initialize(flow, dispatcher)
-        @hydrator = Hay::Task::Template::Hydrator.new(flow)
+      def initialize(flows, dispatcher)
+        @hydrator = Hay::Task::Template::Hydrator.new(flows)
         @dispatcher = dispatcher
       end
 
@@ -13,7 +13,7 @@ module Hay
       end
 
       def submit(data)
-        tasks = @hydrator.hydrate_with(data)
+        tasks = @hydrator.hydrate(data)
         tasks.each do |task|
           @dispatcher.push(task)
         end

@@ -3,12 +3,30 @@ require 'hay'
 module Hay
   class Task
     module Flow
-      def initialize(list = [])
-        @templates = list || []
+      class List
+        include Enumerable
 
-        unless @templates.kind_of?(Array)
-          raise "This has to be an array, dude!"
+        def initialize(list = [])
+          templates = list || []
+
+          unless templates.kind_of?(Array)
+            raise "This has to be an array, dude!"
+          end
+
+          @templates = templates.map do |t|
+            Hydrated.new(t)
+          end
         end
+
+        def each
+          @templates.each do |t|
+            yield t
+          end
+        end
+      end
+
+      def initialize(template)
+        @template = template
       end
 
       class Dehydrated
@@ -16,27 +34,19 @@ module Hay
 
         def inflate(catalog)
           inflator = catalog.inflator
-          templates = @templates.map do |t|
-            template = inflator.inflate(t[:name])
+          template = inflator.inflate(@template[:name])
 
-            if template.nil?
-
-            end
-          end
-
-          Hydrated.new(templates)
+          Hydrated.new(template)
         end
       end
       class Hydrated
         include Flow
 
         def dehydrate
-          templates = @templates.map do |n| 
-            Hay.logger.debug("Dehydrating #{n.inspect}")
-            n.dehydrate 
-          end
+          Hay.logger.debug("Dehydrating #{@template.inspect}")
+          d = @template.dehydrate 
 
-          Dehydrated.new(templates)
+          Dehydrated.new(d)
         end
       end
     end
