@@ -5,21 +5,12 @@ require 'hay/route'
 require 'hay/task'
 
 require 'hay/task/instance'
-require 'hay/task/templates'
 
 class HayTest < Test::Unit::TestCase
-  class Consumer
-    include Hay::Consumer
-
-    def tasks
-      [TerminalTask]
-    end
-  end
-
   module MockTask
     def self.included(base)
       base.instance_exec do
-        include Hay::Task::Instance::Autowired
+        include Hay::Task::Instance
       end
     end
   end
@@ -130,15 +121,17 @@ class HayTest < Test::Unit::TestCase
     def self.tasks
       [RemoteTask]
     end
+  end
 
-    include Hay::Route::Autowired
+  setup do
+    @agent = Agent.new
+    @consumer = Hay::Consumer.new(@agent)
 
+    catalog = @consumer.catalog
+    catalog.add('terminal_task', TerminalTask)
   end
 
   test 'consuming' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
 
     task = TerminalTask.new.to_hay
 
@@ -149,68 +142,48 @@ class HayTest < Test::Unit::TestCase
   end
 
   test 'consuming dehydrated' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
-
     task = TerminalTask.new.to_hay
 
-    consumer.push(task.dehydrate)
+    @consumer.push(task.dehydrate)
 
-    assert_equal 0, agent.messages.length
+    assert_equal 0, @agent.messages.length
   end
 
   test 'consuming and injecting local' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
-
     task = InjectingLocalTask.new.to_hay
 
-    consumer.push(task)
+    @consumer.push(task)
 
     assert task.ran
-    assert_equal 0, agent.messages.length
+    assert_equal 0, @agent.messages.length
   end
 
   test 'consuming and injecting remote' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
-
     task = InjectingRemoteTask.new.to_hay
 
-    consumer.push(task)
+    @consumer.push(task)
 
     assert task.ran
-    assert_equal 1, agent.messages.length
-    assert_kind_of RemoteTask, agent.messages.first.task.__getobj__
+    assert_equal 1, @agent.messages.length
+    assert_kind_of RemoteTask, @agent.messages.first.task.__getobj__
   end
 
   test 'consuming and flowing' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
-
     terminal_task = RemoteTask.new.to_hay
     flow = Hay::Task::Flow.new([terminal_task])
 
     task = FlowableTask.new.to_hay
     task.flow = flow
 
-    consumer.push(task)
+    @consumer.push(task)
 
     assert task.ran
-    assert_equal 1, agent.messages.length
-    assert_kind_of RemoteTask, agent.messages.first.task.__getobj__
-    assert_kind_of Hay::Task::Decorator, agent.messages.first.task
+    assert_equal 1, @agent.messages.length
+    assert_kind_of RemoteTask, @agent.messages.first.task.__getobj__
+    assert_kind_of Hay::Task::Decorator, @agent.messages.first.task
   end
 
   test 'consuming and flowing dehydrated' do
-    agent = Agent.new
-
-    consumer = Consumer.new(agent)
-
     terminal_task = RemoteTask.new.to_hay
     flow = Hay::Task::Flow.new([terminal_task])
 
@@ -219,10 +192,10 @@ class HayTest < Test::Unit::TestCase
 
     dtask = task.dehydrate
 
-    consumer.push(dtask)
+    @consumer.push(dtask)
 
-    assert_equal 1, agent.messages.length
-    assert_kind_of RemoteTask, agent.messages.first.task.__getobj__
-    assert_kind_of Hay::Task::Decorator, agent.messages.first.task
+    assert_equal 1, @agent.messages.length
+    assert_kind_of RemoteTask, @agent.messages.first.task.__getobj__
+    assert_kind_of Hay::Task::Decorator, @agent.messages.first.task
   end
 end

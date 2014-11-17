@@ -1,15 +1,15 @@
 require 'hay'
 
-require 'hay/router'
+require 'hay/consumer/router'
 require 'hay/message'
 
 module Hay
-  module Consumer
+  class Consumer
     class Dispatcher
       def initialize(consumer, agent)
         @consumer = consumer
         @agent = agent
-        @router = Hay::Router.new(@agent)
+        @router = Hay::Consumer::Router.new(@consumer, @agent)
       end
 
       def push(task)

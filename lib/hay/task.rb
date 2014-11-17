@@ -29,7 +29,7 @@ module Hay
     def dehydrate
       {
         "name" => @task_name,
-        "task" => @task.params,
+        "task" => @instance.params,
         "flow" => flow.dehydrate
       }
     end

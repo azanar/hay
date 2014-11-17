@@ -1,14 +1,15 @@
 require 'hay'
 
+require 'hay/consumer/catalog'
 require 'hay/consumer/queue'
 require 'hay/consumer/resolver'
 
 module Hay
-  module Consumer
+  class Consumer
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
-      @catalog = Hay::Consumer::Catalog.new
-      @routes = Hay::Consumer::Routes.new(self)
+      @catalog = Hay::Consumer::Catalog.new(self)
+      #@routes = Hay::Consumer::Routes.new(self)
     end
 
     attr_reader :catalog

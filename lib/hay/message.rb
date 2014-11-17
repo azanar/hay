@@ -1,5 +1,3 @@
-require 'hay/routes'
-
 module Hay
   class Message
     def initialize(consumer, task)

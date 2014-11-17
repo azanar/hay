@@ -1,6 +1,5 @@
 require 'hay'
 
-require 'hay/task/templates'
 require 'hay/task/exception/unknown_template_error'
 
 module Hay
@@ -12,8 +11,10 @@ module Hay
         end
 
         def inflate(task)
-          if catalog.exists?(task)
-
+          if @catalog.exists?(task)
+            @catalog.find(task)
+          else
+            raise "Unable to find cataloged task #{task.inspect}"
           end
         end
       end
@@ -24,7 +25,7 @@ module Hay
       end
 
       def add(name, template)
-        @templates[name] << template
+        @templates[name] = template
       end
 
       def exists?(name)

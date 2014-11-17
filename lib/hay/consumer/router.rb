@@ -1,4 +1,4 @@
-require 'hay/routes'
+#require 'hay/routes'
 
 module Hay
   class Consumer

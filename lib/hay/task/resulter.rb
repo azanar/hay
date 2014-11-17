@@ -1,10 +1,10 @@
-require 'hay/task/template/hydrator'
+require 'hay/task/flow/hydrator'
 
 module Hay
   class Task
     class Resulter
-      def initialize(flows, dispatcher)
-        @hydrator = Hay::Task::Template::Hydrator.new(flows)
+      def initialize(flows, catalog, dispatcher)
+        @hydrator = Hay::Task::Flow::Hydrator.new(catalog, flows)
         @dispatcher = dispatcher
       end
 
@@ -13,7 +13,7 @@ module Hay
       end
 
       def submit(data)
-        tasks = @hydrator.hydrate(data)
+        tasks = @hydrator.hydrate
         tasks.each do |task|
           @dispatcher.push(task)
         end

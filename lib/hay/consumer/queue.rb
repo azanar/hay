@@ -1,7 +1,7 @@
 require 'hay/consumer/dispatcher'
 
 module Hay
-  module Consumer
+  class Consumer
     class Queue
       def initialize(consumer, agent)
         @queue = []

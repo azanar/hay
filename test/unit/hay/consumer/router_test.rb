@@ -1,12 +1,12 @@
-require File.expand_path('../../test_helper', __FILE__)
+require File.expand_path('../../../test_helper', __FILE__)
 
-require 'hay/router'
+require 'hay/consumer/router'
 
-class Hay::RouterTest < Test::Unit::TestCase
+class Hay::Consumer::RouterTest < Test::Unit::TestCase
   setup do
     @mock_agent = mock
 
-    @router = Hay::Router.new(@mock_agent)
+    @router = Hay::Consumer::Router.new(@mock_agent)
   end
 
   test '#push' do
