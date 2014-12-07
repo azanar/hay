@@ -3,6 +3,7 @@ require File.expand_path('../../unit/test_helper', __FILE__)
 require 'hay/consumer'
 require 'hay/route'
 require 'hay/task'
+require 'hay/task/flow/node/hydrated'
 
 require 'hay/task/instance'
 
@@ -135,7 +136,7 @@ class HayTest < Test::Unit::TestCase
 
     task = TerminalTask.new.to_hay
 
-    consumer.push(task)
+    @consumer.push(task)
 
     assert task.ran
     assert_equal 0, agent.messages.length
@@ -170,7 +171,7 @@ class HayTest < Test::Unit::TestCase
 
   test 'consuming and flowing' do
     terminal_task = RemoteTask.new.to_hay
-    flow = Hay::Task::Flow.new([terminal_task])
+    flow = Hay::Task::Flow::Node::Hydrated.new([terminal_task])
 
     task = FlowableTask.new.to_hay
     task.flow = flow

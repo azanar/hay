@@ -32,7 +32,7 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     task = Hay::Task.new(instance)
 
-    flow_template = Hay::Task::Template.new('injected_task', InjectedTask)
+    flow_template = Hay::Task::Template.new(InjectedTask)
 
     flow = Hay::Task::Flow::Node::List.new([flow_template])
 

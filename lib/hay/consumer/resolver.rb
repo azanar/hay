@@ -1,8 +1,8 @@
-
 module Hay
   class Consumer
     class Resolver
-      def initialize(catalog)
+      def initialize(consumer, catalog)
+        @consumer = consumer
         @catalog = catalog
       end
 
@@ -13,7 +13,7 @@ module Hay
       end
 
       def resolve(taskish)
-        resolvers.templatize(taskish)
+        @resolvers.templatize(taskish)
       end
     end
   end

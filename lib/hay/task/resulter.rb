@@ -1,4 +1,5 @@
 require 'hay/task/flow/hydrator'
+require 'hay/task/template/hydrator'
 
 module Hay
   class Task
@@ -13,7 +14,9 @@ module Hay
       end
 
       def submit(data)
-        tasks = @hydrator.hydrate
+        templates = @hydrator.hydrate
+        task_h = Hay::Task::Template::Hydrator.new(templates)
+        tasks = task_h.hydrate(data)
         tasks.each do |task|
           @dispatcher.push(task)
         end

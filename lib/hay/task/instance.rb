@@ -1,5 +1,7 @@
 module Hay
   class Task
+    # Everything that wants to be a Task within the Hay system needs to mix
+    # this module in.
     module Instance
       def initialize(params)
         @params = params
