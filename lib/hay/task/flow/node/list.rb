@@ -30,12 +30,17 @@ module Hay
           end
 
           def inflate(catalog)
-            self.new(@nodes.map {|t| t.inflate(catalog)})
+            self.class.new(@nodes.map {|t| t.inflate(catalog)})
           end
 
           def deflate
-            self.new(@nodes.map {|t| t.dehydrate })
+            self.class.new(@nodes.map {|t| t.dehydrate })
           end
+
+          def dehydrate
+            deflate
+          end
+
           def each
             @nodes.each do |t|
               yield t

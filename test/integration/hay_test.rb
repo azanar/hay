@@ -129,7 +129,8 @@ class HayTest < Test::Unit::TestCase
     @consumer = Hay::Consumer.new(@agent)
 
     catalog = @consumer.catalog
-    catalog.add('terminal_task', TerminalTask)
+    template = Hay::Task::Template.new(TerminalTask)
+    catalog.add('terminal_task', template)
   end
 
   test 'consuming' do
@@ -185,8 +186,8 @@ class HayTest < Test::Unit::TestCase
   end
 
   test 'consuming and flowing dehydrated' do
-    terminal_task = RemoteTask.new.to_hay
-    flow = Hay::Task::Flow.new([terminal_task])
+    terminal_template = Hay::Task::Template.new(RemoteTask)
+    flow = Hay::Task::Flow::Node::List.new([terminal_template])
 
     task = FlowableTask.new.to_hay
     task.flow = flow

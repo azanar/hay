@@ -19,7 +19,7 @@ module Hay
     attr_writer :flow
 
     def flow
-      @flow ||= Hay::Task::Flow::List.new
+      @flow ||= Hay::Task::Flow::Node::List.new
     end
 
     def template
@@ -29,7 +29,7 @@ module Hay
     def dehydrate
       {
         "name" => @task_name,
-        "task" => @instance.params,
+        "task" => @instance.dehydrate,
         "flow" => flow.dehydrate
       }
     end

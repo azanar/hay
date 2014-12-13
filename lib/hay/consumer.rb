@@ -1,8 +1,7 @@
 require 'hay'
 
-require 'hay/consumer/catalog'
 require 'hay/consumer/queue'
-require 'hay/consumer/resolver'
+require 'hay/resolver'
 
 module Hay
   class Consumer
@@ -13,15 +12,14 @@ module Hay
     # 
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
-      @catalog = Hay::Consumer::Catalog.new(self)
-      #@resolvers = Hay::Consumer::Resolver::List.new(@catalog)
-      #@routes = Hay::Consumer::Routes.new(self)
+      @resolver = Hay::Resolver.new
+      #@catalog = Hay::Consumer::Catalog.new(self)
     end
 
     attr_reader :catalog
 
     def ours?(taskish)
-      resolver.can_resolve?(taskish)
+      task
     end
 
     def push(taskish)

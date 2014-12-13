@@ -1,9 +1,10 @@
 require 'hay'
+require 'hay/task/template'
 
 require 'hay/task/exception/unknown_template_error'
 
 module Hay
-  class Consumer
+  class Resolver
     class Catalog
       class Inflator
         def initialize(catalog)
@@ -19,13 +20,21 @@ module Hay
         end
       end
 
-      def initialize(consumer)
-        @consumer = consumer
+      def initialize
         @templates = {}
+        @names = {}
       end
 
       def add(name, template)
+        unless template.kind_of?(Hay::Task::Template)
+
+        end
         @templates[name] = template
+        @names[template] = name
+      end
+
+      def name(template)
+        @names[template]
       end
 
       def exists?(name)
@@ -34,7 +43,9 @@ module Hay
 
       def find(name)
         unless exists?(name)
-          raise Hay::Task::Exception::UnknownTemplateError.new("No template for #{name}")
+          puts @templates.inspect
+          puts @names.inspect
+          raise Hay::Task::Exception::UnknownTemplateError.new(name.inspect)
         end
         @templates[name]
       end

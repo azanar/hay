@@ -17,6 +17,10 @@ module Hay
         self.new(@instance, @params.merge(params))
       end
 
+      def dehydrate
+        {}
+      end
+
       def render
         @instance.new(@params)
       end

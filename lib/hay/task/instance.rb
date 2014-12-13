@@ -7,6 +7,10 @@ module Hay
         @params = params
       end
 
+      def dehydrate
+        @params
+      end
+
       def to_hay
         Hay::Task.new(self)
       end

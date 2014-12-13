@@ -1,5 +1,5 @@
 module Hay
-  class Task
+  class Resolver
     class Hydrator
       class Template
         def initialize(resolver,template) 
