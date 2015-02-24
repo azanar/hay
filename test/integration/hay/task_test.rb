@@ -38,11 +38,11 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     task.flow = flow
 
-    mock_catalog = Hay::Consumer::Catalog.new(nil)
+    mock_resolver = mock
 
     mock_dispatcher = mock
 
-    resulter = Hay::Task::Resulter.new(task.flow, mock_catalog, mock_dispatcher)
+    resulter = Hay::Task::Resulter.new(task.flow, mock_resolver, mock_dispatcher)
 
     out = nil
 
@@ -72,12 +72,11 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     task.flow = flow
 
-    mock_catalog = Hay::Consumer::Catalog.new(nil)
-    mock_catalog.add('injected_task', flow_template)
+    mock_resolver = mock
 
     mock_dispatcher = mock
 
-    resulter = Hay::Task::Resulter.new(task.flow, mock_catalog, mock_dispatcher)
+    resulter = Hay::Task::Resulter.new(task.flow, mock_resolver, mock_dispatcher)
 
     out = nil
 

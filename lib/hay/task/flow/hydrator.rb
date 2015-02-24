@@ -2,14 +2,14 @@ module Hay
   class Task
     module Flow
       class Hydrator
-        def initialize(catalog, flows)
-          @catalog = catalog
+        def initialize(resolver, flows)
+          @resolver = resolver
           @flows = flows
         end
 
         def hydrate
           list = @flows.map { |flow|
-            flow.inflate(@catalog)
+            flow.inflate(@resolver)
           }
 
           Hay::Task::Flow::Node::List.new(list)

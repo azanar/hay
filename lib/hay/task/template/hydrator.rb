@@ -13,8 +13,6 @@ module Hay
             i = template.inflate(params)
 
             c = i.cut
-
-            c.to_hay
           end
         end
       end
