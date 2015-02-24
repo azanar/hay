@@ -1,7 +1,6 @@
 require 'hay'
 
 require 'hay/task/flow'
-#require 'hay/task/template/task'
 
 module Hay
   ##
@@ -16,6 +15,7 @@ module Hay
       @instance.call(dispatcher)
     end
 
+    attr_reader :instance
     attr_writer :flow
 
     def flow

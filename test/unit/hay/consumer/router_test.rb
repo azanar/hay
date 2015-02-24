@@ -6,7 +6,10 @@ class Hay::Consumer::RouterTest < Test::Unit::TestCase
   setup do
     @mock_agent = mock
 
-    @router = Hay::Consumer::Router.new(@mock_agent)
+    @mock_consumer = mock
+
+
+    @router = Hay::Consumer::Router.new(@mock_consumer, @mock_agent)
   end
 
   test '#push' do

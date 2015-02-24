@@ -1,4 +1,5 @@
 require 'hay/task'
+require 'hay/task/instance'
 
 module Hay
   class Task
@@ -22,7 +23,7 @@ module Hay
       end
 
       def render
-        @instance.new(@params)
+        Hay::Task.new(@instance.new(@params))
       end
     end
   end

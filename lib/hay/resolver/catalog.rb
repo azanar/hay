@@ -43,8 +43,6 @@ module Hay
 
       def find(name)
         unless exists?(name)
-          puts @templates.inspect
-          puts @names.inspect
           raise Hay::Task::Exception::UnknownTemplateError.new(name.inspect)
         end
         @templates[name]

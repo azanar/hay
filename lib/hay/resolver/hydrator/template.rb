@@ -7,9 +7,8 @@ module Hay
           @template = template
         end
 
-        # TODO: should dup here?
         def hydrate
-          @template
+          @template.dup
         end
       end
     end

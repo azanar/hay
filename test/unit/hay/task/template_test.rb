@@ -1,10 +1,5 @@
 require File.expand_path('../../../test_helper', __FILE__)
 
-require 'hay/task/templates'
-
-require 'hay/task/template/hash'
-require 'hay/task/template/task'
-
 class Hay::Task::TemplateTest < Test::Unit::TestCase
   test '.new raises on unknown task class' do
     mock_task = mock

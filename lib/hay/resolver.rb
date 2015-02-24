@@ -4,6 +4,7 @@ require 'hay/resolver/hydrator'
 
 module Hay
   class Resolver
+    # A resolver turns any sort of taskish into a fully ready to roll Task.
     def resolve(taskish)
       hydrator = Hydrator.new(@catalog, taskish)
       template = hydrator.hydrate

@@ -2,11 +2,12 @@ module Hay
   class Resolver
     class Cutter
       class Template
-        def initialize
+        def initialize(template)
+          @template = template
         end
 
-        def hydrate
-          @taskish
+        def render
+          @template.render
         end
       end
     end

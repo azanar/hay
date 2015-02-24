@@ -1,8 +1,5 @@
 require File.expand_path('../../../../test_helper', __FILE__)
 
-require 'hay/task/template/hash'
-require 'hay/task/hydrators'
-
 class Hay::Task::Template::HashTest < Test::Unit::TestCase
   test '#render' do
     mock_params = mock

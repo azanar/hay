@@ -5,11 +5,6 @@ require 'hay/resolver'
 
 module Hay
   class Consumer
-    # A catalog keeps track of the templates we know about
-    #
-    # A resolver figures out how to turn something into a task.
-    #
-    # 
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
       @resolver = Hay::Resolver.new

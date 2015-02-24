@@ -1,21 +1,19 @@
 module Hay
   class Resolver
-    class Hydrator
-      class Hash
-        def initialize(resolver, hash)
-          @resolver = resolver
-          @hash = hash
+    class Hydrator::Hash
+      def initialize(catalog, taskish)
+        @catalog = catalog
+        @taskish = taskish
+      end
+
+      def hydrate
+        template = @catalog.find(@taskish['name'])
+        if template.nil?
+          raise "No task for name #{@taskish['name']}"
         end
-
-        def hydrate
-          unless @resolver.can_resolve?(@hash)
-            raise
-          end
-
-          template = @resolver.resolve(@hash['name'])
-
-          template.merge(@hash['params']).render
-        end
+        task = template.merge(@taskish['task'])
+        task.flow = Hay::Task::Flow::Hydrator.new(@catalog, @taskish['flow'])
+        task
       end
     end
   end

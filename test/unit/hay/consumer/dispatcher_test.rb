@@ -10,7 +10,7 @@ class Hay::Consumer::DispatcherTest < Test::Unit::TestCase
     @mock_task_name = mock
 
     @mock_router = mock
-    Hay::Router.expects(:new).with(@mock_agent).returns(@mock_router)
+    Hay::Consumer::Router.expects(:new).with(@mock_agent).returns(@mock_router)
 
     @dispatcher = Hay::Consumer::Dispatcher.new(@mock_consumer, @mock_agent)
   end
