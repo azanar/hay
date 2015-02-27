@@ -30,7 +30,7 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     instance = template.render
 
-    task = Hay::Task.new(instance)
+    task = Hay::Task.new(template, instance)
 
     flow_template = Hay::Task::Template.new(InjectedTask)
 
@@ -59,7 +59,7 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     instance = template.render
 
-    task = Hay::Task.new(instance)
+    task = Hay::Task.new(template, instance)
 
     thing = {
       'name' => 'injected_task',
@@ -80,10 +80,15 @@ class Hay::Task::IntegrationTest < Test::Unit::TestCase
 
     out = nil
 
-    mock_dispatcher.expects(:push).with do |t|
-      assert_kind_of Hay::Task, t
-      true
-    end
+    mock_resolved_task_template = mock
+    mock_resolver.expects(:resolve).with(thing['name']).returns(mock_resolved_task_template)
+
+    mock_resolved_task_template.expects(:kind_of?).with(Hay::Task::Template).returns(true)
+
+    mock_resolved_task = mock
+    mock_resolved_task_template.expects(:render).returns(mock_resolved_task)
+
+    mock_dispatcher.expects(:push).with(mock_resolved_task)
 
     task.call(resulter)
   end

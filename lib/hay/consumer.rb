@@ -8,10 +8,11 @@ module Hay
     def initialize(agent)
       @queue = Hay::Consumer::Queue.new(self, agent)
       @resolver = Hay::Resolver.new
-      #@catalog = Hay::Consumer::Catalog.new(self)
     end
 
-    attr_reader :catalog
+    def catalog
+      resolver.catalog
+    end
 
     def ours?(taskish)
       task
@@ -23,8 +24,6 @@ module Hay
       @queue.push(task)
       @queue.run
     end
-
-    private
 
     def resolver
       @resolver ||= Hay::Consumer::Resolver.new(self, @catalog)

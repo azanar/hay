@@ -15,7 +15,7 @@ module Hay
       def run
         until @queue.empty?
           instance = @queue.shift
-          instance.process(@dispatcher)
+          instance.call(@dispatcher)
         end
       end
     end

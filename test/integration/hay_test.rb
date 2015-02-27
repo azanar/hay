@@ -59,7 +59,7 @@ class HayTest < Test::Unit::TestCase
     include MockTask
 
     def call(dispatcher)
-      dispatcher.inject(TerminalTask.new.to_hay)
+      dispatcher.inject(TerminalTask.new.to_hay(@consumer))
       @ran = true
     end
 
@@ -78,7 +78,7 @@ class HayTest < Test::Unit::TestCase
     include MockTask
 
     def call(dispatcher)
-      dispatcher.inject(RemoteTask.new.to_hay)
+      dispatcher.inject(RemoteTask.new.to_hay(@consumer))
       @ran = true
     end
 
@@ -135,16 +135,16 @@ class HayTest < Test::Unit::TestCase
 
   test 'consuming' do
 
-    task = TerminalTask.new.to_hay
+    task = TerminalTask.new.to_hay(@consumer)
 
     @consumer.push(task)
 
-    assert task.ran
-    assert_equal 0, agent.messages.length
+    assert task.instance.ran
+    assert_equal 0, @agent.messages.length
   end
 
   test 'consuming dehydrated' do
-    task = TerminalTask.new.to_hay
+    task = TerminalTask.new.to_hay(@consumer)
 
     @consumer.push(task.dehydrate)
 
@@ -152,16 +152,16 @@ class HayTest < Test::Unit::TestCase
   end
 
   test 'consuming and injecting local' do
-    task = InjectingLocalTask.new.to_hay
+    task = InjectingLocalTask.new.to_hay(@consumer)
 
     @consumer.push(task)
 
-    assert task.ran
+    assert task.instance.ran
     assert_equal 0, @agent.messages.length
   end
 
   test 'consuming and injecting remote' do
-    task = InjectingRemoteTask.new.to_hay
+    task = InjectingRemoteTask.new.to_hay(@consumer)
 
     @consumer.push(task)
 
@@ -171,10 +171,11 @@ class HayTest < Test::Unit::TestCase
   end
 
   test 'consuming and flowing' do
-    terminal_task = RemoteTask.new.to_hay
-    flow = Hay::Task::Flow::Node::Hydrated.new([terminal_task])
+    terminal_task = RemoteTask.new.to_hay(@consumer)
+    terminal_task_template = Hay::Task::Template.new(terminal_task)
+    flow = Hay::Task::Flow::Node::Hydrated.new([terminal_task_template])
 
-    task = FlowableTask.new.to_hay
+    task = FlowableTask.new.to_hay(@consumer)
     task.flow = flow
 
     @consumer.push(task)
@@ -187,12 +188,15 @@ class HayTest < Test::Unit::TestCase
 
   test 'consuming and flowing dehydrated' do
     terminal_template = Hay::Task::Template.new(RemoteTask)
+    @consumer.catalog.add('terminal_task', terminal_template)
     flow = Hay::Task::Flow::Node::List.new([terminal_template])
 
-    task = FlowableTask.new.to_hay
+    task = FlowableTask.new.to_hay(@consumer)
     task.flow = flow
 
     dtask = task.dehydrate
+
+    puts "DEHYDRATED #{dtask}"
 
     @consumer.push(dtask)
 

@@ -11,8 +11,8 @@ module Hay
         @params
       end
 
-      def to_hay
-        Hay::Task.new(self)
+      def to_hay(consumer)
+        Hay::Task.new(nil, self)
       end
 
       def call(dispatcher)

@@ -7,7 +7,7 @@ module Hay
     # being constructed to *become* a Task.
     class Template
       def initialize(instance, params = {})
-        unless instance.include?(Hay::Task::Instance)
+        unless instance.class.include?(Hay::Task::Instance) or instance.include?(Hay::Task::Instance)
           raise
         end
         @instance = instance
@@ -23,7 +23,7 @@ module Hay
       end
 
       def render
-        Hay::Task.new(@instance.new(@params))
+        Hay::Task.new(self, @instance.new(@params))
       end
     end
   end

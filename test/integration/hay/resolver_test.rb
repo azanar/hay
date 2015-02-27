@@ -71,8 +71,10 @@ class Hay::Resolver::IntegrationTest < Test::Unit::TestCase
   test 'taskish that needs neither cutting nor hydration' do
     mock_task_instance = mock
     mock_task_instance.expects(:include?).returns(Hay::Task::Instance)
+    
+    mock_template = mock
 
-    mock_task = Hay::Task.new(mock_task_instance)
+    mock_task = Hay::Task.new(mock_template, mock_task_instance)
     mock_task_template = Hay::Task::Template.new(mock_task_instance, {})
 
     @resolver.catalog.add('mock_task', mock_task_template)

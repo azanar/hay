@@ -7,6 +7,10 @@ module Hay
       end
 
       def hydrate
+        puts "TASKISH #{@taskish}"
+        unless @taskish['name']
+          raise "I can't resolve a nameless task"
+        end
         template = @catalog.find(@taskish['name'])
         if template.nil?
           raise "No task for name #{@taskish['name']}"

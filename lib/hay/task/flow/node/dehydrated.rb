@@ -1,5 +1,7 @@
 require 'hay/task/flow/node'
 
+require 'hay/resolver/inflator'
+
 module Hay
   class Task
     module Flow
@@ -7,8 +9,8 @@ module Hay
         class Dehydrated
           include Flow::Node
 
-          def inflate(catalog)
-            inflator = Hay::Consumer::Catalog::Inflator.new(catalog)
+          def inflate(resolver)
+            inflator = Hay::Resolver::Inflator.new(resolver)
             template = inflator.inflate(@template['name'])
 
             Hydrated.new(template)

@@ -7,7 +7,8 @@ module Hay
   # An Hay::Task is made up of a Task, and that Task's associated Flow.
   #
  class Task
-    def initialize(instance)
+    def initialize(template, instance)
+      @template = template
       @instance = instance
     end
 
@@ -15,15 +16,12 @@ module Hay
       @instance.call(dispatcher)
     end
 
+    attr_reader :template
     attr_reader :instance
     attr_writer :flow
 
     def flow
       @flow ||= Hay::Task::Flow::Node::List.new
-    end
-
-    def template
-      Hay::Task::Template::Task.new
     end
 
     def dehydrate
