@@ -12,10 +12,15 @@ class HayTest < Test::Unit::TestCase
     def self.included(base)
       base.instance_exec do
         include Hay::Task::Instance
+
+        def call(dispatcher)
+          puts self.class.name
+          Hay.logger.error "Hey! This task didn't implement a call method! #{self.class.name}"
+          super
+        end
       end
     end
   end
-
 
   class RemoteTask
     def self.task_name
@@ -59,7 +64,7 @@ class HayTest < Test::Unit::TestCase
     include MockTask
 
     def call(dispatcher)
-      dispatcher.inject(TerminalTask.new.to_hay(@consumer))
+      dispatcher.push(TerminalTask.new.to_hay(@consumer))
       @ran = true
     end
 
@@ -78,7 +83,7 @@ class HayTest < Test::Unit::TestCase
     include MockTask
 
     def call(dispatcher)
-      dispatcher.inject(RemoteTask.new.to_hay(@consumer))
+      dispatcher.push(RemoteTask.new.to_hay(@consumer))
       @ran = true
     end
 

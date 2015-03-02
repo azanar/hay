@@ -16,6 +16,7 @@ module Hay
       end
 
       def call(dispatcher)
+        Hay.logger.error "Hey! This task didn't implement a call method! #{self.class.name}"
         raise NotImplementedError
       end
     end

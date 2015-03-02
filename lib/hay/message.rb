@@ -1,3 +1,5 @@
+require 'hay/route'
+
 module Hay
   class Message
     def initialize(consumer, task)
@@ -6,6 +8,10 @@ module Hay
       if @task.class == Hash
         raise "god damn it all #{@task}"
       end
+    end
+
+    def destination
+      Hay::Route.new(nil)
     end
 
     attr_reader :task

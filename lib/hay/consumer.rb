@@ -14,8 +14,8 @@ module Hay
       resolver.catalog
     end
 
-    def ours?(taskish)
-      task
+    def ours?(task)
+      false
     end
 
     def push(taskish)
