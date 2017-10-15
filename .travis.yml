@@ -12,4 +12,3 @@ script: "bundle exec rake test:$TEST_SUITE"
 rvm:
   - "2.4.2"
   - "jruby"
-  - "rbx"
